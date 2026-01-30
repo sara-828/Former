@@ -16,10 +16,8 @@ import java.util.ArrayList;
 public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private volatile Thread trad;
 
-    public void run(){
-        
-        
-    }
+    
+   
     public void start(){
         if(trad==null){
             trad = new Thread(this);
@@ -31,6 +29,20 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
             trad=null;
         }
         
+    }
+    @Override
+    public void run(){
+        Thread thisThread = Thread.currentThread();
+        
+
+
+        while (trad==thisThread){
+            try{
+                Thread.sleep(30);
+            }catch(InterruptedException e){ 
+            }
+            repaint();
+        }
     }
 
     ArrayList<Form> formList = new ArrayList<>();
