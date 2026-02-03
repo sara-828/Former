@@ -33,7 +33,6 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     @Override
     public void run(){
         Thread thisThread = Thread.currentThread();
-        
 
 
         while (trad==thisThread){
@@ -42,6 +41,19 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
             }catch(InterruptedException e){ 
             }
             repaint();
+            //.move();
+            for (int i = 1; i <= 10; i++) {
+            System.out.println("Running " + i + " Time");
+        }
+            
+            /*
+            for (MouseX =5; MouseX <300; MouseX +=5)
+            {
+            repaint();
+            }
+            MouseX = 5;*/
+
+
         }
     }
 
@@ -72,6 +84,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         rbtnCirkel = new javax.swing.JRadioButton();
         btnSpara = new javax.swing.JButton();
         btnHämta = new javax.swing.JButton();
+        btnStopp = new javax.swing.JToggleButton();
 
         setPreferredSize(new java.awt.Dimension(570, 461));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,6 +101,11 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         });
 
         btnStart.setText("Start");
+        btnStart.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnStartItemStateChanged(evt);
+            }
+        });
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartActionPerformed(evt);
@@ -118,10 +136,23 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
             }
         });
 
+        btnStopp.setText("Start");
+        btnStopp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnStoppItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHämta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSpara)
+                .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(rbtnRektangel)
@@ -130,16 +161,13 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
                 .addGap(18, 18, 18)
                 .addComponent(rbtnCirkel)
                 .addGap(34, 34, 34)
-                .addComponent(btnStart)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRensa)
-                .addContainerGap(94, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHämta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSpara)
-                .addGap(40, 40, 40))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnStopp)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnStart)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRensa)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +179,9 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
                     .addComponent(rbtnCirkel)
                     .addComponent(btnStart)
                     .addComponent(btnRensa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnStopp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSpara)
                     .addComponent(btnHämta))
@@ -218,7 +248,25 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
         //FormerJPanel.setLocation(FormerJPanel.getLocation().x, FormerJPanel.getLocation().y);
+        
     }//GEN-LAST:event_btnStartActionPerformed
+
+    private void btnStartItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnStartItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnStartItemStateChanged
+
+    private void btnStoppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnStoppItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange()==1){
+            this.btnStopp.setText("stop");
+            this.start();
+        }
+        else{
+            this.btnStopp.setText("start");
+            this.stopp();
+        }
+    }//GEN-LAST:event_btnStoppItemStateChanged
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -236,6 +284,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private javax.swing.JButton btnRensa;
     private javax.swing.JButton btnSpara;
     private javax.swing.JButton btnStart;
+    private javax.swing.JToggleButton btnStopp;
     private javax.swing.JRadioButton rbtnCirkel;
     private javax.swing.JRadioButton rbtnRektangel;
     private javax.swing.JRadioButton rbtnTriangel;
