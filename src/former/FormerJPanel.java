@@ -15,48 +15,8 @@ import java.util.ArrayList;
  */
 public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private volatile Thread trad;
-
     
-   
-    public void start(){
-        if(trad==null){
-            trad = new Thread(this);
-            trad.start();
-        }
-    }
-    public void stopp(){
-        if(trad!=null){
-            trad=null;
-        }
-        
-    }
-    @Override
-    public void run(){
-        Thread thisThread = Thread.currentThread();
-
-
-        while (trad==thisThread){
-            try{
-                Thread.sleep(30);
-            }catch(InterruptedException e){ 
-            }
-            repaint();
-            //.move();
-            for (int i = 1; i <= 10; i++) {
-            System.out.println("Running " + i + " Time");
-        }
-            
-            /*
-            for (MouseX =5; MouseX <300; MouseX +=5)
-            {
-            repaint();
-            }
-            MouseX = 5;*/
-
-
-        }
-    }
-
+    
     ArrayList<Form> formList = new ArrayList<>();
     FileManager list = new FileManager(); 
 
@@ -197,7 +157,6 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        //System.out.println(evt.getX());
         System.out.println("");
         int MouseX = evt.getX();
         int MouseY = evt.getY();
@@ -213,6 +172,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         if (this.rbtnRektangel.isSelected()) {
             Rektangel r = new Rektangel(MouseX - b / 2, MouseY - h / 2, b, h, true);
             formList.add(r);
+            
 
         } else if (this.rbtnTriangel.isSelected()) {
             Triangel t = new Triangel(MouseX - b / 2, MouseY + h / 2, b, h, true);
@@ -268,12 +228,57 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         }
     }//GEN-LAST:event_btnStoppItemStateChanged
 
+    //move(MouseX,MouseY);
+    
+    public void start(){
+        if(trad==null){
+            trad = new Thread(this);
+            trad.start();
+        }
+    }
+    public void stopp(){
+        if(trad!=null){
+            trad=null;
+        }
+        
+    }
+    @Override
+    public void run(){
+        Thread thisThread = Thread.currentThread();
+        
+
+
+        while (trad==thisThread){
+            try{
+                Thread.sleep(30);
+            }catch(InterruptedException e){ 
+            }
+            
+            for (int i = 1; i < formList.size(); i++) {
+            System.out.println("Running " + i + " Time");
+            
+            //formList.get(i).move(i, i);
+            //repaint();
+        }
+            
+            /*
+            for (MouseX =5; MouseX <300; MouseX +=5)
+            {
+            repaint();
+            }
+            MouseX = 5;*/
+            
+        }
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        
         for (int i = 0; i < formList.size(); i++) {
             formList.get(i).draw(g);
+            //g.drawString(TOOL_TIP_TEXT_KEY, xPos, yPos);
+            
         }
 
     }
