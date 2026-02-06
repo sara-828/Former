@@ -36,6 +36,8 @@ public abstract class Form implements Serializable{
         
     }
     public void move(int x, int y){
+    this.xPos = x+100;
+       
         
     }
     public void skrivUt(){

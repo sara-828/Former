@@ -40,6 +40,7 @@ public class Cirkel extends Form {
         g.setColor(color);
         g.fillOval(startX, startY, radie, radie);
         
+        
     }
     public String whatAmI(){
         return "Cirkel";
