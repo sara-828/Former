@@ -31,14 +31,16 @@ public class Cirkel extends Form {
         super(x, y);
         this.radie = r;
         this.fylld = f;
-        this.startX = x;
-        this.startY = y;
+        //this.startX = x;
+        //this.startY = y;
         color  = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
         //this.area = a;
     }
     public void draw(Graphics g){
+        
         g.setColor(color);
-        g.fillOval(startX, startY, radie, radie);
+        //g.fillOval(startX, startY, radie, radie);
+        g.fillOval(xPos, yPos, radie, radie);
         
         
     }

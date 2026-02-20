@@ -25,8 +25,8 @@ public class Rektangel extends Form {
         this.bas = b;
         this.höjd = h;
         fylld = f;
-        this.startX = x;
-        this.startY = y;
+        //this.startX = x;
+        //this.startY = y;
         //this.area = a;
         color  = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
     }
@@ -43,7 +43,7 @@ public class Rektangel extends Form {
     }
     public void draw(Graphics g){
         g.setColor(color);
-        g.fillRect(startX, startY, bas, höjd);
+        g.fillRect(xPos, yPos, bas, höjd);
     }
     public String whatAmI(){
         return "Rektangel";
