@@ -18,6 +18,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     
     
     ArrayList<Form> formList = new ArrayList<>();
+    ArrayList<Integer> position = new ArrayList<>();
     FileManager list = new FileManager(); 
 
     /**
@@ -228,7 +229,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         }
     }//GEN-LAST:event_btnStoppItemStateChanged
 
-    //move(MouseX,MouseY);
+    
     
     public void start(){
         if(trad==null){
@@ -254,20 +255,47 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
             }catch(InterruptedException e){ 
             }
             
-            for (int i = 1; i < formList.size(); i++) {
-            System.out.println("Running " + i + " Time");
-            
-            //formList.get(i).move(i, i);
-            //repaint();
-        }
-            
-            /*
-            for (MouseX =5; MouseX <300; MouseX +=5)
-            {
-            repaint();
+            int cc=0;
+            int aa = 1;
+            int k=0;
+           
+            int pos = formList.get(k).getXpos();
+            System.out.println("p" +pos);
+            //position.add(pos);
+
+        while (trad==thisThread){
+            try{
+                Thread.sleep(5);
+            }catch(InterruptedException e){ 
             }
-            MouseX = 5;*/
+            System.out.println("k"+k);
+            k++;
+            //pos = formList.get(k).getXpos();
+            for (int i = 0; i < formList.size(); i++) {
+            //System.out.println("Running " + i + " Time");
+            //formList.get(i).move( position.get(i), i);
             
+            
+            System.out.println("i"+i);
+            formList.get(i).move(pos, i);
+            
+            }
+            
+            
+            repaint();
+            
+       
+            pos+=aa;
+            
+            if (pos>400){
+                 aa=-1;
+            } else if (pos<0){
+                aa=1;
+            }
+        }
+      
+        
+          
         }
     }
     
@@ -277,7 +305,6 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         
         for (int i = 0; i < formList.size(); i++) {
             formList.get(i).draw(g);
-            //g.drawString(TOOL_TIP_TEXT_KEY, xPos, yPos);
             
         }
 
@@ -296,3 +323,18 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private javax.swing.ButtonGroup rbtng;
     // End of variables declaration//GEN-END:variables
 }
+/*
+            for (int i = 0; i < formList.size(); i++) {
+            //System.out.println("Running " + i + " Time");
+            formList.get(i).move(cc, i);
+            
+}
+            repaint();
+            //cc++;
+            cc+=aa;
+            
+            if (cc>400){
+                 aa=-1;
+            } else if (cc<0){
+                aa=1;
+            }*/
