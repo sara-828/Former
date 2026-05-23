@@ -57,7 +57,7 @@ public abstract class Form implements Serializable{
     }
     public abstract String whatAmI();
     
-    public abstract double getArea();
+    public abstract double getArea(); 
     
     public abstract void draw(Graphics g);
 
