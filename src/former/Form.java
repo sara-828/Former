@@ -51,7 +51,7 @@ public abstract class Form implements Serializable{
                     direction = 1;
                 }
     }
-    
+     
     public void skrivUt(){
         System.out.println();
     }
