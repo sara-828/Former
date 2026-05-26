@@ -17,7 +17,7 @@ public class Rektangel extends Form {
     private int startX;
     private int startY;
     private boolean fylld;
-    // private int area;
+
     
     
     public Rektangel(int x, int y, int b, int h, boolean f){
@@ -25,22 +25,13 @@ public class Rektangel extends Form {
         this.bas = b;
         this.höjd = h;
         fylld = f;
-        //this.startX = x;
-        //this.startY = y;
-        //this.area = a;
         color  = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
     }
-    /*
-    public int getBas(){
-        return bas;
-    }
-    public int getHöjd(){
-        return höjd;
-    }
-    */
+    
     public double getArea(){
         return bas*höjd;
     }
+    // ritar ut form
     public void draw(Graphics g){
         g.setColor(color);
         g.fillRect(xPos, yPos, bas, höjd);

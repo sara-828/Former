@@ -18,7 +18,6 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     
     
     ArrayList<Form> formList = new ArrayList<>();
-    ArrayList<Integer> position = new ArrayList<>();
     FileManager list = new FileManager(); 
 
     /**
@@ -38,14 +37,26 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private void initComponents() {
 
         rbtng = new javax.swing.ButtonGroup();
-        btnRensa = new javax.swing.JButton();
         btnStart = new javax.swing.JButton();
+        btnRensa = new javax.swing.JButton();
         rbtnRektangel = new javax.swing.JRadioButton();
         rbtnTriangel = new javax.swing.JRadioButton();
         rbtnCirkel = new javax.swing.JRadioButton();
         btnSpara = new javax.swing.JButton();
         btnHämta = new javax.swing.JButton();
         btnStopp = new javax.swing.JToggleButton();
+
+        btnStart.setText("Start");
+        btnStart.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnStartItemStateChanged(evt);
+            }
+        });
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         setPreferredSize(new java.awt.Dimension(570, 461));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -58,18 +69,6 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
         btnRensa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRensaActionPerformed(evt);
-            }
-        });
-
-        btnStart.setText("Start");
-        btnStart.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnStartItemStateChanged(evt);
-            }
-        });
-        btnStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartActionPerformed(evt);
             }
         });
 
@@ -122,12 +121,9 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
                 .addGap(18, 18, 18)
                 .addComponent(rbtnCirkel)
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnStopp)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnStart)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRensa)))
+                .addComponent(btnStopp)
+                .addGap(30, 30, 30)
+                .addComponent(btnRensa)
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,11 +134,9 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
                     .addComponent(rbtnRektangel)
                     .addComponent(rbtnTriangel)
                     .addComponent(rbtnCirkel)
-                    .addComponent(btnStart)
-                    .addComponent(btnRensa))
-                .addGap(18, 18, 18)
-                .addComponent(btnStopp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                    .addComponent(btnRensa)
+                    .addComponent(btnStopp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSpara)
                     .addComponent(btnHämta))
@@ -151,39 +145,35 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRensaActionPerformed
-        // TODO add your handling code here:
+        // Tömmer formlist
         formList.clear();
         repaint();
     }//GEN-LAST:event_btnRensaActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
-        System.out.println("");
+      
+        //System.out.println("");
         int MouseX = evt.getX();
         int MouseY = evt.getY();
-        /*        
-        int b = (int)(Math.random()*101);
-        int h = (int)(Math.random()*101);        
-        int a = (int)(Math.random()*301);
-         */
+       
         int b = (int) (Math.random() * 50) + 50;
         int h = (int) (Math.random() * 50) + 50;
-        //int a = (int) (Math.random() * 150) + 50;
-
+       
+        // skapar objekt
         if (this.rbtnRektangel.isSelected()) {
             Rektangel r = new Rektangel(MouseX - b / 2, MouseY - h / 2, b, h, true);
+            r.setDirection(1);
             formList.add(r);
             
 
         } else if (this.rbtnTriangel.isSelected()) {
             Triangel t = new Triangel(MouseX - b / 2, MouseY + h / 2, b, h, true);
+            t.setDirection(1);
             formList.add(t);
-/*
-            Triangel t = new Triangel(MouseX - a / 2, MouseY + a / 2, a, a, true);
-            formList.add(t);
-*/
+
         } else if (this.rbtnCirkel.isSelected()) {
             Cirkel c = new Cirkel(MouseX - h / 2, MouseY - h / 2, h, true);
+            c.setDirection(1);
             formList.add(c);
           
         }
@@ -192,13 +182,13 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     }//GEN-LAST:event_formMouseClicked
 
     private void btnSparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaActionPerformed
-        // TODO add your handling code here:
+        // Sparar till fil
         list.saveToFile(formList); 
         
     }//GEN-LAST:event_btnSparaActionPerformed
 
     private void btnHämtaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHämtaActionPerformed
-        // TODO add your handling code here:
+        // Läser från fil
         formList = FileManager.readFromFile();
          for (int i = 0; i < formList.size(); i++) {
             formList.get(i);
@@ -218,7 +208,7 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     }//GEN-LAST:event_btnStartItemStateChanged
 
     private void btnStoppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnStoppItemStateChanged
-        // TODO add your handling code here:
+        // Start och stopp knapp
         if(evt.getStateChange()==1){
             this.btnStopp.setText("stop");
             this.start();
@@ -230,76 +220,40 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     }//GEN-LAST:event_btnStoppItemStateChanged
 
     
-    
+    // startar tråd
     public void start(){
         if(trad==null){
             trad = new Thread(this);
             trad.start();
         }
     }
+    // stannar tråd
     public void stopp(){
         if(trad!=null){
             trad=null;
         }
         
     }
-    @Override
+    @Override //animering av former
     public void run(){
         Thread thisThread = Thread.currentThread();
-        
 
-
-        while (trad==thisThread){
-            try{
-                Thread.sleep(30);
-            }catch(InterruptedException e){ 
-            }
-            
-            int cc=0;
-            int aa = 1;
-            int k=0;
-           
-            int pos = formList.get(k).getXpos();
-            System.out.println("p" +pos);
-            //position.add(pos);
-
-        while (trad==thisThread){
-            try{
+        while (trad == thisThread) {
+            try {
                 Thread.sleep(5);
-            }catch(InterruptedException e){ 
+            } catch (InterruptedException e) {
             }
-            System.out.println("k"+k);
-            k++;
-            //pos = formList.get(k).getXpos();
+
             for (int i = 0; i < formList.size(); i++) {
-            //System.out.println("Running " + i + " Time");
-            //formList.get(i).move( position.get(i), i);
-            
-            
-            System.out.println("i"+i);
-            formList.get(i).move(pos, i);
-            
+                formList.get(i).move(1);
             }
-            
-            
             repaint();
-            
-       
-            pos+=aa;
-            
-            if (pos>400){
-                 aa=-1;
-            } else if (pos<0){
-                aa=1;
-            }
+
         }
-      
-        
-          
-        }
+
     }
     
-    @Override
+    @Override // ritar ut former
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
@@ -323,18 +277,3 @@ public class FormerJPanel extends javax.swing.JPanel implements Runnable{
     private javax.swing.ButtonGroup rbtng;
     // End of variables declaration//GEN-END:variables
 }
-/*
-            for (int i = 0; i < formList.size(); i++) {
-            //System.out.println("Running " + i + " Time");
-            formList.get(i).move(cc, i);
-            
-}
-            repaint();
-            //cc++;
-            cc+=aa;
-            
-            if (cc>400){
-                 aa=-1;
-            } else if (cc<0){
-                aa=1;
-            }*/

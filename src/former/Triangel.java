@@ -33,6 +33,7 @@ public class Triangel extends Form {
         fylld = f;
         color  = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
     }
+    // ritar ut form
     public void draw(Graphics g){
         g.setColor(color);
         int [] xPoint = {xPos, xPos + bas/2, xPos + bas};
